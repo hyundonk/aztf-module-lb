@@ -19,8 +19,8 @@ variable "sku" {
   description = "(Required) load balancer sku. Standard or Basic"
 }
 
-variable "frontend_ip_address" {
-  description = "internal load balancer frontend IP address"
+variable "subnet_ip_offset" {
+  description = "ip address offset in the subnet which will be used for load balancer frontend ip address"
 }
 
 variable "subnet_id" {
