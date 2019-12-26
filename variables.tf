@@ -51,6 +51,10 @@ variable "number_of_probes" {
   default   = "2"
 }
 
+variable "dependencies" {
+  type = "list"
+  default = []
+}
 
 
 /*

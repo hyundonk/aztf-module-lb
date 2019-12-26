@@ -29,6 +29,8 @@ resource "azurerm_lb_backend_address_pool" "lb" {
     resource_group_name             = azurerm_lb.lb.resource_group_name
     loadbalancer_id                 = azurerm_lb.lb.id
     name                            = "backendpool"
+
+    depends_on    = ["null_resource.dependency_getter"]
 }
 
 resource "azurerm_lb_rule" "https" {
@@ -73,5 +75,17 @@ resource "azurerm_lb_rule" "http" {
 	  idle_timeout_in_minutes         = 4
 	  load_distribution               = "Default"
 	  disable_outbound_snat           = false
+}
+
+resource "null_resource" "dependency_getter" {
+  provisioner "local-exec" {
+    command = "echo ${length(var.dependencies)}"
+  }
+}
+
+resource "null_resource" "dependency_setter" {
+  depends_on = [
+    "azurerm_lb_backend_address_pool.lb",
+  ]
 }
 
